@@ -1,0 +1,51 @@
+# Obfuscated PowerShell Beautifier
+# Splits powershell strings at the semicolon for easier analysis
+# Scott Shaulis
+# 11-17-2023
+# Future versions may attempt to automate more of the CyberChef processes, in particular with -f string {decimal} replacements.
+
+import re
+import pyperclip as pc
+
+
+def main():
+    print("Input your base64 PowerShell code you'd like to beautify. Your beautified results "
+          "will automatically copied to your clipboard.")
+
+
+psScript = input()
+
+
+def validate_ps(obfuscatedpowershell):
+    pattern1 = r"(?<=\')\'\+\'"
+    pattern2 = r'powershell\.exe'
+
+    psdeobf = re.sub(pattern2, "powershell[.]exe", obfuscatedpowershell)
+
+    plusdeobf = re.sub(pattern1, "", psdeobf)
+
+    return plusdeobf
+
+
+def b64splitter(script):
+    deobfscript = validate_ps(script)
+
+    commands = deobfscript.split(";")
+
+    try:
+
+        commands = [command.strip() for command in commands if command.strip()]
+
+        print("Your base64 code has been beautified and copied to your clipboard.")
+
+        return "\n\n".join(commands)
+
+    except (RuntimeError, TypeError, NameError) as e:
+        print(f"Apologies, my bytecode seems to have scrambled. Please try again.", e)
+        exit()
+
+
+pc.copy((b64splitter(psScript)))
+
+if __name__ != '__main__':
+    main()
