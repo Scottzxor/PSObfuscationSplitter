@@ -47,5 +47,5 @@ def b64splitter(script):
 
 pc.copy((b64splitter(psScript)))
 
-if __name__ != '__main__':
+if __name__ == '__main__':
     main()
