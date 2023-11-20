@@ -2,7 +2,7 @@
 # Splits powershell strings at the semicolon for easier analysis
 # Scott Shaulis
 # 11-17-2023
-# Future versions may attempt to automate more of the CyberChef processes, in particular with -f string {decimal} replacements.
+# Future versions may attempt to recursively automate more of the CyberChef processes, in particular with -f string {decimal} replacements.
 
 import re
 import pyperclip as pc
